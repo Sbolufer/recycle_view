@@ -5,6 +5,8 @@ buildscript {
     repositories {
         google()
         jcenter()
+        // Sbf importem llibreria de validacions
+        maven { url 'https://jitpack.io'}
         
     }
     dependencies {

@@ -1,10 +1,12 @@
 package esmyfirstandroidproject.covalco.recycle_view_example;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,28 @@ public class MainActivity2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity2_main);
+        Log.e("HelloMelo", getClass().getName() + " Melón !!!!!!");
 
-        Toast toast =Toast.makeText(getApplicationContext(),BuildConfig.FLAVOR + " " + BuildConfig.ENDPOINT, Toast.LENGTH_LONG);
+        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+        SharedPreferences.Editor editor = pref.edit();
+        //editor.putBoolean("key_name", true); // Storing boolean - true/false
+        editor.putString("key_name", "string value"); // Storing string
+        //editor.putInt("key_name", 1); // Storing integer
+        //editor.putFloat("key_name", 2); // Storing float
+        //editor.putLong("key_name", 3); // Storing long
+
+        editor.commit(); // commit changes
+        String sh="";
+        try {
+            sh = pref.getString("key_name", null); // getting String
+
+        } catch (Exception ex)
+        {
+            Log.e("Error-MainActivity", ex.getMessage());
+        }
+
+        Toast toast = Toast.makeText(getApplicationContext(),BuildConfig.FLAVOR + " " +
+                      sh + " " + BuildConfig.ENDPOINT, Toast.LENGTH_LONG);
         toast.setMargin(50,50);
         toast.show();
         recycleViewUser = (RecyclerView) findViewById(R.id.reyclerViewUser);
